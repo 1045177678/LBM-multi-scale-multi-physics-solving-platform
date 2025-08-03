@@ -27,6 +27,8 @@ A general multiscale multiphysics solver based on the lattice Boltzmann method
 
 - **Adaptive output**  
   Tecplot FEQUADRILATERAL/ BLOCK `.dat` with only the variables of active fields (e.g., `rho, ux, uy, phi`), plus timestamps.
+  - **Boundary conditions as Operators**  
+  In this framework, all boundary conditions (e.g. velocity or no-slip BCs) are implemented as `Operator` instances. During each time step, the engine automatically loops over every operator targeting the current level and calls `op->apply(ctx)`. This unified “operators” stage ensures that boundary conditions are applied seamlessly alongside body-forces, sources, and other custom operators before and/or after the collision-streaming phases, without any special casing in the core time‐step logic.
 
 ---
 
